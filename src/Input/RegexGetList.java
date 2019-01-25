@@ -67,4 +67,18 @@ public class RegexGetList
 		
 		return regexList;
 	}
+	
+	public static ArrayList<String> getStringsFromText(String text, String regex, int group)
+	{
+		ArrayList<String> regexList = new ArrayList<String>();
+		
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(text);
+		while (matcher.find())
+		{
+			regexList.add(matcher.group(group));
+		}
+		
+		return regexList;
+	}
 }
