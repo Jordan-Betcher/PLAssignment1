@@ -2,6 +2,7 @@ package MainMenu.MenuCities.MenuRouteFromCity;
 
 import Input.BusRouteBuffer;
 import Menu.MenuListOptions;
+import Menu.OptionQuit;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ public class MenuRouteFromCity extends MenuListOptions
 		{
 			this.addOption(new OptionRoute(route));
 		}
+		this.addOption(new OptionQuit("Return to City Menu", this));
 	}
 	
 	@Override

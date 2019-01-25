@@ -24,8 +24,7 @@ public abstract class MenuListOptions
 		{
 			printIntro();
 			printOptions();
-			int optionNumber = askForOptionNumber();
-			Option option = options.get(optionNumber - 1);
+			Option option = askForOption();
 			
 			System.out.println(FormatFirstLetterCapitilizedRestLowerCase(option.getDescription()));
 			option.run();
@@ -47,32 +46,52 @@ public abstract class MenuListOptions
 		}
 	}
 	
-	private int askForOptionNumber()
+	private Option askForOption()
 	{
 		boolean askingAgain = false;
 		int optionNumber = 0;
+		Option optionReturn;
 		
 		do
 		{
 			askingAgain = false;
 			System.out.print("Please enter an option number: ");
+			String input = InputConsole.getInput();
 			
 			try
 			{
-				optionNumber = Integer.parseInt(InputConsole.getInput());
+				optionNumber = Integer.parseInt(input);
+				if (optionNumber - 1 < 0 || optionNumber > options.size())
+				{
+					askingAgain = true;
+				}
+				else
+				{
+					return options.get(optionNumber - 1);
+				}
 			}
 			catch (Exception exception)
 			{
 				askingAgain = true;
 			}
 			
-			if (optionNumber - 1 < 0 || optionNumber > options.size())
+			ArrayList<Option> optionOptions = new ArrayList<>();
+			for(Option option : options)
 			{
-				askingAgain = true;
+				String description = option.getDescription().toLowerCase();
+				if(description.contains(input.toLowerCase().trim()))
+				{
+					optionOptions.add(option);
+				}
 			}
-		} while (askingAgain);
+			
+			if(optionOptions.size() == 1)
+			{
+				return optionOptions.get(0);
+			}
+			
+		} while (true);
 		
-		return optionNumber;
 	}
 	
 	public static String FormatFirstLetterCapitilizedRestLowerCase(String sentance)
