@@ -79,4 +79,9 @@ public class BusRouteBuffer
 	{
 		return cityToBusRoutes.get(city);
 	}
+	
+	public String getLink(String route)
+	{
+		return busScheduleURL + "route/" + route;
+	}
 }
