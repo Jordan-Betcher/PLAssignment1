@@ -6,7 +6,7 @@ public class OptionSearchByBus extends Option
 {
 	public OptionSearchByBus()
 	{
-		super("Search by Bus");
+		super("Search by Bus Route");
 	}
 	
 	@Override

@@ -7,7 +7,7 @@ public class MainMenu extends MenuListOptions
 {
 	public MainMenu()
 	{
-		this.addOption(new OptionSearchByCityInitial());
+		this.addOption(new OptionChooseCityMenu());
 		this.addOption(new OptionSearchByBus());
 		this.addOption(new OptionQuit("Quit", this));
 	}

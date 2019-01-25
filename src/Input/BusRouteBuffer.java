@@ -1,15 +1,15 @@
-import Input.RegexGetList;
+package Input;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BusRouteBuffer
 {
-	HashMap<String, ArrayList<String>> CityToBusRoutes;
-	BusRouteBuffer busRouteBuffer;
+	HashMap<String, ArrayList<String>> cityToBusRoutes;
+	static BusRouteBuffer busRouteBuffer;
 	private String busScheduleURL = "https://www.communitytransit.org/busservice/schedules/";
 	
-	public BusRouteBuffer getInstance()
+	public static BusRouteBuffer getInstance()
 	{
 		if(busRouteBuffer == null)
 		{
@@ -21,7 +21,7 @@ public class BusRouteBuffer
 	
 	public BusRouteBuffer()
 	{
-		CityToBusRoutes = getCityToBusRoutesFromURL(busScheduleURL);
+		cityToBusRoutes = getCityToBusRoutesFromURL(busScheduleURL);
 	}
 	
 	private HashMap<String,ArrayList<String>> getCityToBusRoutesFromURL(String scheduleURL)
@@ -34,7 +34,6 @@ public class BusRouteBuffer
 		
 		for(String chunk : cityRoutesHTMLChunks)
 		{
-			System.out.println("[" + chunk + "]");
 			group = 1;
 			regex = "<h3>(.*?)</h3>";
 			String city = RegexGetList.getStringsFromText(chunk, regex, group).get(0);
@@ -67,5 +66,17 @@ public class BusRouteBuffer
 				System.out.println("\t" + route);
 			}
 		}
+	}
+	
+	public ArrayList<String> getCities()
+	{
+		ArrayList<String> cities = new ArrayList<>();
+		cities.addAll(cityToBusRoutes.keySet());
+		return cities;
+	}
+	
+	public ArrayList<String> getRoutes(String city)
+	{
+		return cityToBusRoutes.get(city);
 	}
 }
